@@ -1,0 +1,139 @@
+<div class="background">
+  <div *ngIf="userDetails$ | async as userDetails">
+    <mat-toolbar>
+      <span>Użytkownik: {{userDetails.name}}</span>
+    </mat-toolbar>
+    
+    <div class="row">
+
+      <div class="col-6">
+        <mat-card *ngIf="userOperationHistory$ | async as operationHistory">
+          <mat-card-title>Historia transakcji</mat-card-title>
+          <table
+            mat-table
+            [dataSource]="operationHistory"
+            class="mat-elevation-z8"
+          >
+          <ng-container matColumnDef="date">
+            <th mat-header-cell *matHeaderCellDef>Data transakcji</th>
+            <td mat-cell *matCellDef="let element">{{ element.date }}</td>
+          </ng-container>
+            <ng-container matColumnDef="value">
+              <th mat-header-cell *matHeaderCellDef>Wartość</th>
+              <td mat-cell *matCellDef="let element">{{ element.value }}</td>
+            </ng-container>
+            <ng-container matColumnDef="exchangeRate">
+              <th mat-header-cell *matHeaderCellDef>Waluta</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.exchangeRate }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="totalValue">
+              <th mat-header-cell *matHeaderCellDef>Typ operacji</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.totalValue }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="currencyCode">
+              <th mat-header-cell *matHeaderCellDef>Typ operacji</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.currencyCode }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="operationType">
+              <th mat-header-cell *matHeaderCellDef>Typ operacji</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.operationType }}
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="operationHistoryColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: operationHistoryColumns"></tr>
+          </table>
+        </mat-card>
+      </div>
+
+      <div class="col-6">
+        <mat-card *ngIf="userHistory$ | async as userHistory">
+          <mat-card-title>Historia konta</mat-card-title>
+          <table
+            mat-table
+            [dataSource]="userHistory"
+            class="mat-elevation-z8"
+          >
+            <ng-container matColumnDef="date">
+              <th mat-header-cell *matHeaderCellDef>Data</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.date }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="action">
+              <th mat-header-cell *matHeaderCellDef>Typ operacji</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.action }}
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="historyColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: historyColumns"></tr>
+          </table>
+        </mat-card>
+      </div>
+
+    </div>
+    <div class="row">
+
+      <div class="col-6">
+        <mat-card *ngIf="userAccountBalance$ | async as userAccountBalance">
+          <mat-card-title>Bilans kont</mat-card-title>
+          <table
+            mat-table
+            [dataSource]="userAccountBalance"
+            class="mat-elevation-z8"
+          >
+            <ng-container matColumnDef="currency">
+              <th mat-header-cell *matHeaderCellDef>Waluta</th>
+              <td mat-cell *matCellDef="let element">{{ element.currency }}</td>
+            </ng-container>
+            <ng-container matColumnDef="balance">
+              <th mat-header-cell *matHeaderCellDef>Bilans</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.balance }}
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="accountBalancesColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: accountBalancesColumns"></tr>
+          </table>
+        </mat-card>
+      </div>
+
+      <div class="col-6">
+        <mat-card *ngIf="currencies$ | async as currencies">
+          <mat-card-title>Kursy walut</mat-card-title>
+          <table
+            mat-table
+            [dataSource]="currencies"
+            class="mat-elevation-z8"
+          >
+            <ng-container matColumnDef="name">
+              <th mat-header-cell *matHeaderCellDef>Waluta</th>
+              <td mat-cell *matCellDef="let element">{{ element.name }}</td>
+            </ng-container>
+            <ng-container matColumnDef="purchase">
+              <th mat-header-cell *matHeaderCellDef>Kupno</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.purchase }}
+              </td>
+            </ng-container>
+            <ng-container matColumnDef="sale">
+              <th mat-header-cell *matHeaderCellDef>Sprzedaż</th>
+              <td mat-cell *matCellDef="let element">
+                {{ element.sale }}
+              </td>
+            </ng-container>
+            <tr mat-header-row *matHeaderRowDef="currenciesColumns"></tr>
+            <tr mat-row *matRowDef="let row; columns: currenciesColumns"></tr>
+          </table>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

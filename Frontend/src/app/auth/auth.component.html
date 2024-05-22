@@ -1,0 +1,29 @@
+<div class="background">
+  <div class="center">
+    <mat-card *ngIf="credentials$ | async as credentials">
+      <div class="main-module">
+        <mat-card-title class="padding">Panel logowania</mat-card-title>
+        <form novalidate [ngrxFormState]="credentials"></form>
+        <div class="col">
+          <div class="row">
+            <mat-form-field appearance="outline">
+              <mat-label>Login</mat-label>
+              <input matInput name="login" class="form-control" required
+              [ngrxFormControlState]="credentials.controls.login">
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <mat-form-field appearance="outline">
+              <mat-label>Hasło</mat-label>
+              <input matInput name="password" class="form-control" required
+              [ngrxFormControlState]="credentials.controls.password">
+            </mat-form-field>
+          </div>
+          <div class="row">
+            <button mat-raised-button (click)="loginRequest()">Zaloguj</button>
+          </div>
+        </div>
+      </div>
+    </mat-card>
+  </div>
+</div>
