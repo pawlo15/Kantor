@@ -8,10 +8,9 @@ import * as jwt_decode from 'jwt-decode';
 export class JWTTokenService {
 
     jwtToken: string | null;
-    //decodedToken: { [key: string]: string };
 
     constructor(){
-        this.jwtToken = '';
+        this.jwtToken = null;
      }
 
     setToken(token: string) {
@@ -21,8 +20,6 @@ export class JWTTokenService {
     }
 
     getToken() {
-        console.log("wszedłem do jwt");
-        console.log(sessionStorage.getItem("accessToken"));
         if(this.jwtToken == null)
             this.jwtToken = sessionStorage.getItem("accessToken");
         return sessionStorage.getItem("accessToken");

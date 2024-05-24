@@ -29,12 +29,13 @@ import { MaterialModule } from "../shared/material.module";
 import { FormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatToolbar } from '@angular/material/toolbar';
+import { MatDialog } from '@angular/material/dialog';
 
 @NgModule({
     declarations: [
         AppComponent,
         AuthComponent,
-        PanelComponent
+        PanelComponent,
         // tu dodajemy componenty
     ],
     imports: [

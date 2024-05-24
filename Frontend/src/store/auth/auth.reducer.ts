@@ -41,7 +41,7 @@ const _authReducer = createReducer<IAuthState>(initialState,
         sessionStorage.setItem("refreshToken", action.token.refreshToken);
         return { ...state}
     }),
-    on(AuthActions.redirectToLoginPage, (state) => {
+    on(AuthActions.navigateToLoginPage, (state) => {
         sessionStorage.removeItem("accessToken");
         sessionStorage.removeItem("refreshToken");
         return { ...state}

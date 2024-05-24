@@ -1,11 +1,12 @@
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import * as PanelActions from './panel.actions';
-import { catchError, exhaustMap, map, of, pipe, withLatestFrom } from "rxjs";
+import { catchError, exhaustMap, map, of, pipe, switchMap, withLatestFrom } from "rxjs";
 import { Store } from "@ngrx/store";
 import { IMainState, getApi } from "../main/main.reducer";
 import { PanelService } from "../../services/panel/panel.service";
 import { HttpErrorResponse } from "@angular/common/http";
+import { getExchange } from "./panel.reducer";
 
 @Injectable()
 export class PanelEffects {
@@ -49,5 +50,28 @@ export class PanelEffects {
                 return of()
             })
         )
+    ))
+
+    exchangeCurrency$ = createEffect(() => this.action$.pipe(
+        ofType(PanelActions.ExchangeCurrency),
+        withLatestFrom(
+            this.store.select(getApi),
+            this.store.select(getExchange)
+        ),
+        exhaustMap(([,api,body]) => 
+            this.service.exchange(api,body)
+        ),
+        pipe(
+            map(() => {
+                return PanelActions.ExchangeCurrencySuccess();
+            })
+        )
+    ))
+
+    exchangeCurrencySuccess$ = createEffect(() => this.action$.pipe(
+        ofType(PanelActions.ExchangeCurrencySuccess),
+        switchMap(() => [
+            PanelActions.GetUserDetails()
+        ])
     ))
 }

@@ -3,7 +3,7 @@ import { FormGroupState } from 'ngrx-forms';
 import { Observable } from 'rxjs';
 import { IAuthState, ICredentials, getCredentials } from '../../store/auth/auth.reducer';
 import { Store } from '@ngrx/store';
-import { login } from '../../store/auth/auth.actions';
+import { login, register } from '../../store/auth/auth.actions';
 
 @Component({
   selector: 'app-auth',
@@ -19,7 +19,11 @@ export class AuthComponent {
     this.credentials$ = this.store.select(getCredentials);
   }
 
-  loginRequest(){
+  login(){
     this.store.dispatch(login());
+  }
+  
+  register(){
+    this.store.dispatch(register())
   }
 }

@@ -11,7 +11,8 @@ export const routes: Routes = [
     },
     {
         path: 'panel',
-        component: PanelComponent
+        component: PanelComponent,
+        //canActivate: [AuthGuard]
     }
 ];
 

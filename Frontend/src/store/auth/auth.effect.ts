@@ -3,11 +3,13 @@ import { Actions, createEffect, ofType } from "@ngrx/effects";
 import { IMainState, getApi } from "../main/main.reducer";
 import { Store } from "@ngrx/store";
 import * as AuthActions from "./auth.actions";
-import { catchError, exhaustMap, map, of, withLatestFrom } from "rxjs";
-import { getCredentials } from "./auth.reducer";
+import { catchError, exhaustMap, map, of, switchMap, tap, withLatestFrom } from "rxjs";
+import { authReducer, getCredentials } from "./auth.reducer";
 import { HttpErrorResponse } from "@angular/common/http";
 import { AuthService } from "../../services/auth/auth.service";
 import { Injectable } from "@angular/core";
+import { setIsLoged } from "../main/main.actions";
+import { MatDialog } from "@angular/material/dialog";
 
 @Injectable()
 export class AuthEffect {
@@ -16,7 +18,8 @@ export class AuthEffect {
         private action$: Actions,
         private service: AuthService,
         private router: Router,
-        private store: Store<IMainState>
+        private store: Store<IMainState>,
+        private dialog: MatDialog
     ) { }
 
     login$ = createEffect(() => this.action$.pipe(
@@ -36,5 +39,39 @@ export class AuthEffect {
                     return of(AuthActions.loginFailed({ message: err.error.Message}))
                 })
             ))
+    ))
+
+    loginSuccess$ = createEffect(() => this.action$.pipe(
+        ofType(AuthActions.loginSuccess),
+        switchMap(() => [
+            setIsLoged(),
+            AuthActions.navigateToMainPanel(),
+            AuthActions.clearCredentials()
+        ])
+    ))
+
+    navigateToMainPanel$ = createEffect(() => this.action$.pipe(
+        ofType(AuthActions.navigateToMainPanel),
+        tap(() => {
+            this.router.navigate(['/panel'])
+        })
+    ), { dispatch: false })
+
+    navigateToLoginPage$ = createEffect(() => this.action$.pipe(
+        ofType(AuthActions.navigateToLoginPage),
+        tap(() => {
+            this.router.navigate(['/'])
+        })
+    ), { dispatch: false })
+
+    logout$ = createEffect(() => this.action$.pipe(
+        ofType(AuthActions.logout),
+        switchMap(() => [
+            AuthActions.logout()
+        ])
+    ))
+
+    register$ = createEffect(() => this.action$.pipe(
+        ofType(AuthActions.register)
     ))
 }

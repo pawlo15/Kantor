@@ -1,8 +1,8 @@
 import { createFeatureSelector, createReducer, createSelector, on } from "@ngrx/store";
-import { onNgrxForms } from "ngrx-forms";
+import { FormGroupState, createFormGroupState, onNgrxForms, onNgrxFormsAction } from "ngrx-forms";
 import { GetCurrenciesSuccess, GetUserDetailsSuccess } from "./panel.actions";
 
-const PANEL = "PANEL";
+const EXCHANGE = "EXCHANGE";
 
 const getPanelState = createFeatureSelector<IPanelState>('panel');
 
@@ -11,6 +11,7 @@ export const getUserAccountBalance = createSelector(getPanelState, state => stat
 export const getUserHistory = createSelector(getPanelState, state => state.userHistory);
 export const getUserOperationHistory = createSelector(getPanelState, state => state.userOperationHistory);
 export const getCurrencies = createSelector(getPanelState, state => state.currencies);
+export const getExchange = createSelector(getPanelState, state => state.exchange);
 
 export interface IPanelState {
   user: IUserDetails;
@@ -18,6 +19,7 @@ export interface IPanelState {
   userAccountBalances: IUserBalance[];
   userHistory: IUserHistory[];
   userOperationHistory: IUserOperationHistory[];
+  exchange: FormGroupState<IExchange>;
 }
 
 export interface IUserDetails {
@@ -44,18 +46,24 @@ export interface ICurrencyResponse {
 }
 
 export interface ICurrency {
-  name: string;
-  purchase: number;
-  sale: number;
-  validFrom: string;
-  validTo: string;
-  securityCode: number;
+  name: string,
+  purchase: number,
+  sale: number,
+  validFrom: string,
+  validTo: string,
+  securityCode: number
 }
 
 export interface IUserBalance {
   currencyId: number;
   balance: number;
   currency: string;
+}
+
+export interface IExchange {
+  currency: string,
+  amount: number,
+  isSale: boolean,
 }
 
 export interface IUserHistory {
@@ -85,19 +93,35 @@ const initialStateOperationHistory : IUserOperationHistory = {
 }
 
 const initialStateUserDetails : IUserDetails = {
-    id: "daf17549-8c36-4be4-8b50-ccecf8874e40",
-    email: "pawel@mail.com",
-    name: "pawel",
-    login: "pawel123",
-    secureKey: "ASRMKKKF",
+  id: "",
+  email: "",
+  name: "",
+  login: "",
+  secureKey: ""
 }
 
+const initialStateCurrency : ICurrency = {
+  name: '',
+  purchase: 0,
+  sale: 0,
+  securityCode: 0,
+  validFrom: '',
+  validTo: ''
+}
+
+const initialStateExchange = createFormGroupState<IExchange>(EXCHANGE, {
+  amount: 0,
+  isSale: false,
+  currency: ''
+})
+
 const initialState: IPanelState = {
-    user: initialStateUserDetails,
-    currencies: [],
-    userAccountBalances: [],
-    userHistory: [],
-    userOperationHistory: []
+  user: initialStateUserDetails,
+  currencies: [],
+  userAccountBalances: [],
+  userHistory: [],
+  userOperationHistory: [],
+  exchange: initialStateExchange
 }
 
 const _panelReducer = createReducer<IPanelState>(initialState,
@@ -110,11 +134,11 @@ const _panelReducer = createReducer<IPanelState>(initialState,
           userOperationHistory: action.user.operationHistory 
         }
     }),
-    // on( GetCurrenciesSuccess, (state, action) => {
-    //     return { ...state,
-    //       currencies: action.data.currencies 
-    //     }
-    // })
+    on( GetCurrenciesSuccess, (state, action) => {
+        return { ...state,
+          currencies: action.data.currencies
+        }
+    })
 )
 
 export function panelReducer(state: any, action: any) {

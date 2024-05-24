@@ -3,26 +3,36 @@
     <mat-card *ngIf="credentials$ | async as credentials">
       <div class="main-module">
         <mat-card-title class="padding">Panel logowania</mat-card-title>
-        <form novalidate [ngrxFormState]="credentials"></form>
-        <div class="col">
-          <div class="row">
-            <mat-form-field appearance="outline">
-              <mat-label>Login</mat-label>
-              <input matInput name="login" class="form-control" required
-              [ngrxFormControlState]="credentials.controls.login">
-            </mat-form-field>
+        <mat-card-content>
+          <div class="col">
+            <div class="row">
+              <mat-form-field appearance="outline">
+                <mat-label>Login</mat-label>
+                <input matInput name="login" class="form-control" required
+                [ngrxFormControlState]="credentials.controls.login">
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-form-field appearance="outline">
+                <mat-label>Hasło</mat-label>
+                <input matInput name="password" class="form-control" required type="password"
+                [ngrxFormControlState]="credentials.controls.password">
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <div class="col">
+                <button mat-raised-button (click)="login()">Zaloguj</button>
+              </div>
+            </div>
           </div>
+        </mat-card-content>
+        <mat-card-footer>
           <div class="row">
-            <mat-form-field appearance="outline">
-              <mat-label>Hasło</mat-label>
-              <input matInput name="password" class="form-control" required
-              [ngrxFormControlState]="credentials.controls.password">
-            </mat-form-field>
+            <div class="col">
+              <button mat-button (click)="register()">Zarejestruj się</button>
+            </div>
           </div>
-          <div class="row">
-            <button mat-raised-button (click)="loginRequest()">Zaloguj</button>
-          </div>
-        </div>
+        </mat-card-footer>
       </div>
     </mat-card>
   </div>
