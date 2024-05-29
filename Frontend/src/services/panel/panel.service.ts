@@ -24,14 +24,19 @@ export class PanelService extends BaseService{
     }
 
     exchange(api: string, body: any) {
-        console.log('jestem w serwisie')
-        console.log(body)
-
         var mybody = {
             currency: body.value.currency.value,
             amount: body.value.amount,
             isSale: body.value.isSale
         }
+
         return this.http.post(this.url(api,"/operations/exchange"), mybody)
+    }
+
+    addMoney(api: string, body: any) {
+        var mybody = {
+            value: body.value.value
+        }
+        return this.http.post(this.url(api,"/operations/resources"), mybody)
     }
 }

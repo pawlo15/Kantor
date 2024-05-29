@@ -24,6 +24,6 @@ export class AuthComponent {
   }
   
   register(){
-    this.store.dispatch(register())
+    this.store.dispatch(register());
   }
 }

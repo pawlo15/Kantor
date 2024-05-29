@@ -6,5 +6,6 @@ export const rootEffect = [
     MainEffects,
     AuthEffect,
     PanelEffects,
+    
     // tu dodajemy effecty
 ]

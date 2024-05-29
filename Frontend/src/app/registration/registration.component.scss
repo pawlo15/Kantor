@@ -1,0 +1,20 @@
+.main-module {
+    text-align: center;
+    padding: 10px 50px 0px;
+    margin: 10px;
+    width: fit-content;
+}
+
+.padding {
+    padding: 0px 0px 10px;
+}
+
+.center { 
+    padding: 10px;
+    height: min-content;
+    position: absolute;
+    margin: auto;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50% , -50%);
+}

@@ -2,8 +2,9 @@ import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ICurrency, IExchange, IPanelState, IUserBalance, IUserDetails, IUserHistory, IUserOperationHistory, getCurrencies, getExchange, getUserAccountBalance, getUserDetails, getUserHistory, getUserOperationHistory } from '../../store/panel/panel.reducer';
 import { Store } from '@ngrx/store';
-import { ExchangeCurrency, GetCurrencies, GetUserDetails } from '../../store/panel/panel.actions';
+import { AddMoney, ExchangeCurrency, GetCurrencies, GetUserDetails } from '../../store/panel/panel.actions';
 import { FormGroupState } from 'ngrx-forms';
+import { logout } from '../../store/auth/auth.actions';
 
 @Component({
   selector: 'app-panel',
@@ -39,12 +40,15 @@ export class PanelComponent {
   }
 
   logout(){
-    console.log("wylogowanie")
+    this.store.dispatch(logout())
   }
 
   exchangeRequest(){
-    console.log("Wymiana");
     this.store.dispatch(ExchangeCurrency());
+  }
+
+  addMoney(){
+    this.store.dispatch(AddMoney());
   }
 }
 

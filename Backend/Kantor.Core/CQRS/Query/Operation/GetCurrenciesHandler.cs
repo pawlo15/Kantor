@@ -27,7 +27,7 @@ namespace Kantor.Core.CQRS.Query.Operation
 
             var result = new GetCurrenciesQuery.Result
             {
-                Currencies = _mapper.Map<ICollection<CurrencyItemDTO>>(response.Curriencies),
+                Currencies = _mapper.Map<ICollection<CurrencyItemDTO>>(response.Currencies),
             };
 
             DateTime validFrom = DateTime.UtcNow;

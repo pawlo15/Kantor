@@ -19,20 +19,20 @@ namespace Kantor.Core.Services
 
         public async Task<CurrencyListDTO> GetCurrency()
         {
-            //var httpResponse = await _httpClient.GetAsync(_host);
+            var httpResponse = await _httpClient.GetAsync(_host);
 
-            //if (httpResponse.IsSuccessStatusCode)
-            //{
-            //    var content = await httpResponse.Content.ReadAsStringAsync();
-                
-            //    var response = JsonConvert.DeserializeObject<CurrencyListDTO>(content);
+            if (httpResponse.IsSuccessStatusCode)
+            {
+                var content = await httpResponse.Content.ReadAsStringAsync();
 
-            //    return response;
-            //}
-            //else
-            //    throw new Exception("Wystąpił błąd podczas pobierania kursów walut.");
+                var response = JsonConvert.DeserializeObject<CurrencyListDTO>(content);
 
-            return new CurrencyListDTO { Curriencies = new Collection<CurrencyListItemDTO> {
+                return response;
+            }
+            else
+                throw new Exception("Wystąpił błąd podczas pobierania kursów walut.");
+
+            return new CurrencyListDTO { Currencies = new Collection<CurrencyListItemDTO> {
                 new() { Name = "USD", Price = 3.8921M},
                 new() { Name = "GBP", Price = 5.3214M},
                 new() { Name = "CHF", Price = 4.4214M},

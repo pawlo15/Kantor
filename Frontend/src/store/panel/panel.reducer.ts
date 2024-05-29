@@ -3,6 +3,7 @@ import { FormGroupState, createFormGroupState, onNgrxForms, onNgrxFormsAction } 
 import { GetCurrenciesSuccess, GetUserDetailsSuccess } from "./panel.actions";
 
 const EXCHANGE = "EXCHANGE";
+const ADDMONEY = "ADDMONEY";
 
 const getPanelState = createFeatureSelector<IPanelState>('panel');
 
@@ -12,6 +13,7 @@ export const getUserHistory = createSelector(getPanelState, state => state.userH
 export const getUserOperationHistory = createSelector(getPanelState, state => state.userOperationHistory);
 export const getCurrencies = createSelector(getPanelState, state => state.currencies);
 export const getExchange = createSelector(getPanelState, state => state.exchange);
+export const getAddMoneyRequest = createSelector(getPanelState, state => state.addMoneyRequest);
 
 export interface IPanelState {
   user: IUserDetails;
@@ -20,6 +22,7 @@ export interface IPanelState {
   userHistory: IUserHistory[];
   userOperationHistory: IUserOperationHistory[];
   exchange: FormGroupState<IExchange>;
+  addMoneyRequest: FormGroupState<IAddMoney>;
 }
 
 export interface IUserDetails {
@@ -28,6 +31,10 @@ export interface IUserDetails {
   name: string;
   email: string;
   secureKey: string;
+}
+
+export interface IAddMoney {
+  value: number;
 }
 
 export interface IUserDetailsResponse {
@@ -81,6 +88,11 @@ export interface IUserOperationHistory {
   operationType: string;
   operationTypeId: number;
 }
+
+const initialStateAddMoney = createFormGroupState<IAddMoney>(ADDMONEY, {
+  value: 0
+})
+
 const initialStateOperationHistory : IUserOperationHistory = {
   date: '15-12-11',
   value: 321,
@@ -121,7 +133,8 @@ const initialState: IPanelState = {
   userAccountBalances: [],
   userHistory: [],
   userOperationHistory: [],
-  exchange: initialStateExchange
+  exchange: initialStateExchange,
+  addMoneyRequest: initialStateAddMoney,
 }
 
 const _panelReducer = createReducer<IPanelState>(initialState,

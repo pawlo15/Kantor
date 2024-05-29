@@ -30,12 +30,14 @@ import { FormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatToolbar } from '@angular/material/toolbar';
 import { MatDialog } from '@angular/material/dialog';
+import { RegistrationComponent } from "./registration/registration.component";
 
 @NgModule({
     declarations: [
         AppComponent,
         AuthComponent,
         PanelComponent,
+        RegistrationComponent
         // tu dodajemy componenty
     ],
     imports: [

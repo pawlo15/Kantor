@@ -4,7 +4,7 @@ import { IToken } from "./auth.reducer";
 export const login = createAction("[Auth] Login");
 export const logout = createAction("[Auth] Logout");
 
-export const register = createAction("[Auth] Open Register dialog");
+export const register = createAction("[Auth] Redirect To Registration Page");
 
 export const loginSuccess = createAction("[Auth] Login Success", props<{ token: IToken }>());
 export const loginFailed = createAction("[Auth] Login Failed", props<{ message: string }>());

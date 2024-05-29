@@ -6,7 +6,7 @@ import { Store } from "@ngrx/store";
 import { IMainState, getApi } from "../main/main.reducer";
 import { PanelService } from "../../services/panel/panel.service";
 import { HttpErrorResponse } from "@angular/common/http";
-import { getExchange } from "./panel.reducer";
+import { getAddMoneyRequest, getExchange } from "./panel.reducer";
 
 @Injectable()
 export class PanelEffects {
@@ -70,6 +70,29 @@ export class PanelEffects {
 
     exchangeCurrencySuccess$ = createEffect(() => this.action$.pipe(
         ofType(PanelActions.ExchangeCurrencySuccess),
+        switchMap(() => [
+            PanelActions.GetUserDetails()
+        ])
+    ))
+
+    addMoney$ = createEffect(() => this.action$.pipe(
+        ofType(PanelActions.AddMoney),
+        withLatestFrom(
+            this.store.select(getApi),
+            this.store.select(getAddMoneyRequest)
+        ),
+        exhaustMap(([,api, body]) =>
+            this.service.addMoney(api, body)
+        ),
+        pipe(
+            map(() => {
+                return PanelActions.AddMoneySuccess();
+            })
+        ))
+    )
+
+    addMoneySuccess$ = createEffect(() => this.action$.pipe(
+        ofType(PanelActions.AddMoneySuccess),
         switchMap(() => [
             PanelActions.GetUserDetails()
         ])

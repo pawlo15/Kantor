@@ -1,14 +1,12 @@
 <mat-card class="main-module">
   <mat-toolbar>
-    <div *ngIf="userDetails$ | async as userDetails">
-      <div class="row">
+    <div class="row" *ngIf="userDetails$ | async as userDetails">
         <div class="col">
           <span>Użytkownik: {{ userDetails.name }}</span>
         </div>
         <div class="col">
-          <p>cos cos cos</p>
+          <button mat-raised-button (click)="logout()">wyloguj</button>
         </div>
-      </div>
     </div>
   </mat-toolbar>
   <mat-card-content>

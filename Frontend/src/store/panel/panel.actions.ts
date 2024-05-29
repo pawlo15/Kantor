@@ -9,3 +9,6 @@ export const GetCurrenciesSuccess = createAction("[Panel] Get Currencies Success
 
 export const ExchangeCurrency = createAction("[Panel] Exchange Currency");
 export const ExchangeCurrencySuccess = createAction("[Panel] Exchange Currency Success");
+
+export const AddMoney = createAction("[Panel] Add Money");
+export const AddMoneySuccess = createAction("[Panel] Add Money Success");

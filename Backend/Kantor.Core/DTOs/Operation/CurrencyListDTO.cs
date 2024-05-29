@@ -2,6 +2,6 @@
 {
     public record CurrencyListDTO
     {
-        public ICollection<CurrencyListItemDTO> Curriencies { get; set; }
+        public ICollection<CurrencyListItemDTO> Currencies { get; set; }
     }
 }

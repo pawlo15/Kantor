@@ -4,12 +4,11 @@ import { IMainState, getApi } from "../main/main.reducer";
 import { Store } from "@ngrx/store";
 import * as AuthActions from "./auth.actions";
 import { catchError, exhaustMap, map, of, switchMap, tap, withLatestFrom } from "rxjs";
-import { authReducer, getCredentials } from "./auth.reducer";
+import { getCredentials } from "./auth.reducer";
 import { HttpErrorResponse } from "@angular/common/http";
 import { AuthService } from "../../services/auth/auth.service";
 import { Injectable } from "@angular/core";
 import { setIsLoged } from "../main/main.actions";
-import { MatDialog } from "@angular/material/dialog";
 
 @Injectable()
 export class AuthEffect {
@@ -18,8 +17,7 @@ export class AuthEffect {
         private action$: Actions,
         private service: AuthService,
         private router: Router,
-        private store: Store<IMainState>,
-        private dialog: MatDialog
+        private store: Store<IMainState>
     ) { }
 
     login$ = createEffect(() => this.action$.pipe(
@@ -67,11 +65,15 @@ export class AuthEffect {
     logout$ = createEffect(() => this.action$.pipe(
         ofType(AuthActions.logout),
         switchMap(() => [
-            AuthActions.logout()
+            AuthActions.navigateToLoginPage()
         ])
     ))
 
-    register$ = createEffect(() => this.action$.pipe(
-        ofType(AuthActions.register)
-    ))
+    registration$ = createEffect(() => this.action$.pipe(
+        ofType(AuthActions.register),
+        tap(() => {
+            this.router.navigate(['/registration'])
+        })
+    ), { dispatch: false })
+    
 }
