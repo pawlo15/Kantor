@@ -13,7 +13,7 @@ export const routes: Routes = [
     {
         path: 'panel',
         component: PanelComponent,
-        //canActivate: [AuthGuard]
+        canActivate: [AuthGuard]
     },
     {
         path: 'registration',
