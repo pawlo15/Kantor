@@ -122,7 +122,28 @@
       </div>
     </div>
     <div class="row">
-      <div class="col-9">
+      <div class="col-3">
+        <div class="custom-card">
+          <mat-card *ngIf="addMoneyRequest$ | async as addMoneyRequest">
+            <mat-card-content>
+              <mat-card-title>Dodaj środki</mat-card-title>
+              <div class="row">
+                <div class="col">
+                  <mat-form-field appearance="fill">
+                    <mat-label>Kwota</mat-label>
+                    <input matInput name="value" class="form-control" type="number"
+                      required [ngrxFormControlState]="addMoneyRequest.controls.value"/>
+                  </mat-form-field>
+                  <div class="col">
+                    <button mat-raised-button (click)="addMoney()" [disabled]="addMoneyRequest.controls.value.value === null || addMoneyRequest.controls.value.value <= 0">Dodaj środki</button>
+                  </div>
+                </div>
+              </div>
+            </mat-card-content>
+          </mat-card>
+        </div>
+      </div>
+      <div class="col">
         <div class="custom-card">
           <mat-card *ngIf="userOperationHistory$ | async as operationHistory">
             <mat-card-content>

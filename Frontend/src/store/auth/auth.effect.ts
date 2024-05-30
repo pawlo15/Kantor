@@ -33,7 +33,6 @@ export class AuthEffect {
                     return AuthActions.loginSuccess({ token: token});
                 }),
                 catchError((err: HttpErrorResponse) => {
-                    console.log(err)
                     return of(AuthActions.loginFailed({ message: err.error.Message}))
                 })
             ))

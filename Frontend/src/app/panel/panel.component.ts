@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
-import { ICurrency, IExchange, IPanelState, IUserBalance, IUserDetails, IUserHistory, IUserOperationHistory, getCurrencies, getExchange, getUserAccountBalance, getUserDetails, getUserHistory, getUserOperationHistory } from '../../store/panel/panel.reducer';
+import { IAddMoney, ICurrency, IExchange, IPanelState, IUserBalance, IUserDetails, IUserHistory, IUserOperationHistory, getAddMoneyRequest, getCurrencies, getExchange, getUserAccountBalance, getUserDetails, getUserHistory, getUserOperationHistory } from '../../store/panel/panel.reducer';
 import { Store } from '@ngrx/store';
 import { AddMoney, ExchangeCurrency, GetCurrencies, GetUserDetails } from '../../store/panel/panel.actions';
 import { FormGroupState } from 'ngrx-forms';
@@ -20,12 +20,14 @@ export class PanelComponent {
 
 
   public exchange$: Observable<FormGroupState<IExchange>>;
+  public addMoneyRequest$: Observable<FormGroupState<IAddMoney>>
 
   userDetails$: Observable<IUserDetails>;
   public currencies$: Observable<ICurrency[]>;
   userAccountBalance$: Observable<IUserBalance[]>;
   userHistory$: Observable<IUserHistory[]>;
   userOperationHistory$: Observable<IUserOperationHistory[]>;
+
 
   constructor(private store: Store<IPanelState>){
     this.store.dispatch(GetUserDetails());
@@ -37,6 +39,7 @@ export class PanelComponent {
     this.userAccountBalance$ = this.store.select(getUserAccountBalance);
     this.userHistory$ = this.store.select(getUserHistory);
     this.userOperationHistory$ = this.store.select(getUserOperationHistory);
+    this.addMoneyRequest$ = this.store.select(getAddMoneyRequest);
   }
 
   logout(){

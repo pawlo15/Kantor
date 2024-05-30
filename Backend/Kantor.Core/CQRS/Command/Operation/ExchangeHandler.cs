@@ -57,8 +57,8 @@ namespace Kantor.Core.CQRS.Command.Operation
                 else
                 {
                     exchangeCurrencyBalance.Balance += request.Amount;
-                    balancePLN.Balance -= value;
                 }
+                balancePLN.Balance -= value;
             }
             else
             {

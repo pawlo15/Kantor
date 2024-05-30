@@ -47,7 +47,6 @@ namespace Kantor.Infrastructure.Middleware
                     {
                         response = "Wystąpił wewnętrzny błąd systemu.";
                         context.Response.StatusCode = StatusCodes.Status500InternalServerError;
-                        _logger.LogError($"Error: {ex}");
                         break;
                     }
                 }

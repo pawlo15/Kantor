@@ -7,9 +7,11 @@ const CREDENTIALS = "CREDENTIALS";
 const getAuthState = createFeatureSelector<IAuthState>('auth');
 
 export const getCredentials = createSelector(getAuthState, state => state.credetials);
+export const getError = createSelector(getAuthState, state => state.error);
 
 export interface IAuthState {
     credetials: FormGroupState<ICredentials>;
+    error: boolean
 }
 
 export interface ICredentials {
@@ -28,7 +30,8 @@ const initialStateCredentials = createFormGroupState<ICredentials>(CREDENTIALS, 
 })
 
 export const initialState : IAuthState = {
-    credetials: initialStateCredentials
+    credetials: initialStateCredentials,
+    error: false
 }
 
 const _authReducer = createReducer<IAuthState>(initialState,
@@ -45,6 +48,12 @@ const _authReducer = createReducer<IAuthState>(initialState,
         sessionStorage.removeItem("accessToken");
         sessionStorage.removeItem("refreshToken");
         return { ...state}
+    }),
+    on(AuthActions.register, (state: any) => {
+        return { ...state, credetials: initialState.credetials}
+    }),
+    on(AuthActions.loginFailed, (state, action) => {
+        return {...state, error: true}
     })
 )
 

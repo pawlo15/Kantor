@@ -2,8 +2,8 @@ import { createFeatureSelector, createReducer, createSelector, on } from "@ngrx/
 import * as MainActions from "./main.actions";
 
 export const initialState: IMainState = {
-    loading: true,
-    APIEndpoint: "https://localhost:7222",
+    loading: false,
+    APIEndpoint: "",
     Version: {
         buildDate: "",
         version: ""
@@ -32,6 +32,9 @@ export const getVersion = createSelector(getMainState, state => state.Version.ve
 const _mainReducer = createReducer<IMainState>(initialState,
     on(MainActions.setIsLoged,(state: any) => {
         return { ...state, IsLogged: true }
+    }),
+    on(MainActions.setEnviromentSuccess, (state, action) => {
+        return { ...state, APIEndpoint: action.url.APIEndpoint, loading: action.url.loading, Version: action.url.Version}
     })
 )
 

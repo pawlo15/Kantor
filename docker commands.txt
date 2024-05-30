@@ -1,0 +1,5 @@
+docker run --name postgres -e POSTGRES_PASSWORD=123qwe -d -p 5432:5432 postgres
+
+docker run --name core -p 7070:8080 -d kantor-image 
+
+docker run --name frontend --network mynetwork -p 4201:4200 -d frontend-image

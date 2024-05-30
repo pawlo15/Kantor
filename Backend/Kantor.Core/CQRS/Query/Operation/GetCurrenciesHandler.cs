@@ -2,7 +2,6 @@
 using Kantor.Core.DTOs.Operation;
 using Kantor.Core.Services.Interfaces;
 using MediatR;
-using Microsoft.Extensions.Configuration;
 
 namespace Kantor.Core.CQRS.Query.Operation
 {
@@ -13,7 +12,7 @@ namespace Kantor.Core.CQRS.Query.Operation
         private readonly decimal _purchaseRate;
         private readonly decimal _saleRate;
 
-        public GetCurrenciesHandler(ICurrencyService service, IMapper mapper, IConfiguration configuration)
+        public GetCurrenciesHandler(ICurrencyService service, IMapper mapper)
         {
             _service = service;
             _mapper = mapper;

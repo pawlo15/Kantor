@@ -1,6 +1,6 @@
 import { Store } from "@ngrx/store";
 import { RegistrationService } from "../../services/registration/registration.service";
-import { IRegistrationState, getRegistrationDetails } from "./registration.reducer";
+import { getRegistrationDetails } from "./registration.reducer";
 import { Injectable } from "@angular/core";
 import { Actions, createEffect, ofType } from "@ngrx/effects";
 import * as RegistrationActions from "./registration.actions";
@@ -25,7 +25,7 @@ export class RegistrationEffect {
             this.store.select(getRegistrationDetails)
         ),
         exhaustMap(([, api, details]) =>
-        this.service.sendRequest(api, details)
+            this.service.sendRequest(api, details)
         .pipe(
             map(() => {
                 return RegistrationActions.registrationSuccess();

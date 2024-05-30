@@ -1,7 +1,8 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { Observable } from "rxjs";
+import { Observable, of } from "rxjs";
 import { IMainState } from "../../store/main/main.reducer";
+import * as config from '../../assets/appsettings.json';
 
 @Injectable({
     providedIn: 'root'
@@ -12,6 +13,6 @@ export class EnvService{
     }
 
     getEnviroment(): Observable<IMainState> {
-        return this.httpClient.get<IMainState>("assets/appsettings.json") as Observable<IMainState>;
+        return of(config as IMainState);
     }
 }

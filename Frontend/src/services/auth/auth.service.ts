@@ -21,6 +21,7 @@ export class AuthService extends BaseService{
             'login': credentials.controls.login.value,
             'password': credentials.controls.password.value
         }
+        console.log('/auth/login')
         return this.http.post<IToken>(this.url(api,'/auth/login'), body);
     }
 

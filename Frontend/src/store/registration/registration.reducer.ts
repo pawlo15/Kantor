@@ -1,6 +1,6 @@
 import { createFeatureSelector, createReducer, createSelector, on } from "@ngrx/store";
 import { FormGroupState, createFormGroupState, onNgrxForms } from "ngrx-forms";
-import { ICredentials } from "../auth/auth.reducer";
+import * as AuthActions from "../auth/auth.actions";
 import * as RegistrationActions from "./registration.actions";
 
 const REGISTRATION = "REGISTRATION";
@@ -34,6 +34,9 @@ export const initialState : IRegistrationState = {
 const _registrationReducer = createReducer<IRegistrationState>(initialState,
     onNgrxForms(),
     on(RegistrationActions.registrationSuccess, (state: any) => {
+        return {...state, registrationDetails: initialState.registrationDetails}
+    }),
+    on(AuthActions.navigateToLoginPage, (state: any) => {
         return {...state, registrationDetails: initialState.registrationDetails}
     })
 )

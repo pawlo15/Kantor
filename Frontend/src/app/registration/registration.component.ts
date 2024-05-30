@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { FormGroupState } from 'ngrx-forms';
 import { Observable } from 'rxjs';
-import { IAuthState, ICredentials } from '../../store/auth/auth.reducer';
+import { IAuthState } from '../../store/auth/auth.reducer';
 import { IRegistrationDetails, IRegistrationState, getRegistrationDetails } from '../../store/registration/registration.reducer';
 import { Store } from '@ngrx/store';
 import { registration } from '../../store/registration/registration.actions';

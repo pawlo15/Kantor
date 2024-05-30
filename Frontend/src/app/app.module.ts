@@ -26,10 +26,9 @@ import { MatSelectModule} from "@angular/material/select";
 import { CommonModule, NgFor } from "@angular/common";
 import { NgrxFormsModule } from "ngrx-forms";
 import { MaterialModule } from "../shared/material.module";
-import { FormsModule } from "@angular/forms";
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatToolbar } from '@angular/material/toolbar';
-import { MatDialog } from '@angular/material/dialog';
 import { RegistrationComponent } from "./registration/registration.component";
 
 @NgModule({
@@ -61,6 +60,7 @@ import { RegistrationComponent } from "./registration/registration.component";
         NgrxFormsModule,
         CommonModule,
         MaterialModule,
+        ReactiveFormsModule,
         StoreModule.forRoot(appReducer, {
             runtimeChecks: {
                 strictStateImmutability: false,

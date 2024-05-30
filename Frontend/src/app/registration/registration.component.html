@@ -1,51 +1,74 @@
 <div>
-    <div class="center">
-        <mat-card *ngIf="details$ | async as details">
-            <div class="main-module">
-                <mat-card-title class="padding">
-                    Rejestracja
-                </mat-card-title>
-                <mat-card-content>
-                    <div class="col">
-                        <div class="row">
-                            <mat-form-field appearance="outline">
-                                <mat-label>Login</mat-label>
-                                <input matInput name="login" class="form-control" required
-                                    [ngrxFormControlState]="details.controls.login">
-                            </mat-form-field>
-                        </div>
-                        <div class="row">
-                            <mat-form-field appearance="outline">
-                                <mat-label>Email</mat-label>
-                                <input matInput name="email" class="form-control" required
-                                    [ngrxFormControlState]="details.controls.email">
-                            </mat-form-field>
-                        </div>
-                        <div class="row">
-                            <mat-form-field appearance="outline">
-                                <mat-label>Nazwa użytkownika</mat-label>
-                                <input matInput name="name" class="form-control" required
-                                    [ngrxFormControlState]="details.controls.name">
-                            </mat-form-field>
-                        </div>
-                        <div class="row">
-                            <mat-form-field appearance="outline">
-                                <mat-label>Hasło</mat-label>
-                                <input matInput name="password" class="form-control" required type="password"
-                                    [ngrxFormControlState]="details.controls.password">
-                            </mat-form-field>
-                        </div>
-                        <div class="padding">
-                            <div class="row">
-                                <button mat-raised-button (click)="register()">Zarejestruj</button>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <button mat-button (click)="back()">cofnij</button>
-                    </div>
-                </mat-card-content>
+  <div class="center">
+    <mat-card *ngIf="details$ | async as details">
+      <div class="main-module">
+        <mat-card-title class="padding"> Rejestracja </mat-card-title>
+        <mat-card-content>
+          <div class="col">
+            <div class="row">
+              <mat-form-field appearance="outline">
+                <mat-label>Login</mat-label>
+                <input matInput name="login" class="form-control"
+                  required [ngrxFormControlState]="details.controls.login"/>
+                <mat-hint class="incorrect"
+                  *ngIf="details.controls.login.isTouched && details.controls.login.value === ''">
+                  <strong>To pole nie może być puste</strong>
+                </mat-hint>
+              </mat-form-field>
             </div>
-        </mat-card>
-    </div>
+            <div class="row">
+              <mat-form-field appearance="outline">
+                <mat-label>Email</mat-label>
+                <input matInput name="email" class="form-control"
+                  required [ngrxFormControlState]="details.controls.email"/>
+                <mat-hint class="incorrect"
+                  *ngIf="details.controls.email.isTouched && details.controls.email.value === ''">
+                  <strong>To pole nie może być puste</strong>
+                </mat-hint>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-form-field appearance="outline">
+                <mat-label>Nazwa użytkownika</mat-label>
+                <input matInput name="name" class="form-control"
+                  required [ngrxFormControlState]="details.controls.name"/>
+                <mat-hint class="incorrect"
+                  *ngIf="details.controls.name.isTouched && details.controls.name.value === ''">
+                  <strong>To pole nie może być puste</strong>
+                </mat-hint>
+              </mat-form-field>
+            </div>
+            <div class="row">
+              <mat-form-field appearance="outline">
+                <mat-label>Hasło</mat-label>
+                <input matInput name="password" class="form-control"
+                  required type="password" [ngrxFormControlState]="details.controls.password"/>
+                <mat-hint class="incorrect"
+                  *ngIf="details.controls.password.isTouched && details.controls.password.value === ''">
+                  <strong>To pole nie może być puste</strong>
+                </mat-hint>
+                <mat-hint class="incorrect"
+                  *ngIf="details.controls.password.isTouched && details.controls.password.value !== '' && details.controls.password.value.length < 5">
+                  <strong>Hasło powinno być dłuższe</strong>
+                </mat-hint>
+              </mat-form-field>
+            </div>
+            <div class="padding">
+              <div class="row">
+                <button mat-raised-button (click)="register()"
+                    [disabled]="details.controls.login.value ==='' || details.controls.email.value ==='' ||
+                    details.controls.login.value ==='' || details.controls.password.value ==='' || 
+                    details.controls.password.value.length < 5">
+                  Zarejestruj
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <button mat-button (click)="back()">cofnij</button>
+          </div>
+        </mat-card-content>
+      </div>
+    </mat-card>
+  </div>
 </div>

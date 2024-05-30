@@ -8,26 +8,38 @@
             <div class="row">
               <mat-form-field appearance="outline">
                 <mat-label>Login</mat-label>
-                <input matInput name="login" class="form-control" required
-                [ngrxFormControlState]="credentials.controls.login">
+                <input matInput class="form-control" name="login"
+                  type="text" required [ngrxFormControlState]="credentials.controls.login"/>
+                <mat-hint class="incorrect"
+                  *ngIf="credentials.controls.login.isTouched && credentials.controls.login.value === ''">
+                  <strong>To pole nie może być puste</strong>
+                </mat-hint>
               </mat-form-field>
             </div>
             <div class="row">
               <mat-form-field appearance="outline">
                 <mat-label>Hasło</mat-label>
-                <input matInput name="password" class="form-control" required type="password"
-                [ngrxFormControlState]="credentials.controls.password">
+                <input matInput name="password" class="form-control"
+                  required type="password" [ngrxFormControlState]="credentials.controls.password"/>
+                <mat-hint class="incorrect"
+                  *ngIf="credentials.controls.password.isTouched && credentials.controls.password.value === ''">
+                  <strong>To pole nie może być puste</strong>
+                </mat-hint>
               </mat-form-field>
             </div>
             <div class="padding">
               <div class="row">
-                <button mat-raised-button (click)="login()">Zaloguj</button>
+                <p class="incorrect" *ngIf="error$ | async as error">Niepoprawny login lub hasło</p>
+                <button mat-raised-button (click)="login()"
+                  [disabled]="credentials.controls.login.value === '' || credentials.controls.password.value === ''">
+                  Zaloguj
+                </button>
               </div>
             </div>
           </div>
         </mat-card-content>
         <mat-card-footer>
-          <div class="padding">  
+          <div class="padding">
             <div class="row">
               <button mat-button (click)="register()">Zarejestruj się</button>
             </div>

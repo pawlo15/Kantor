@@ -1,6 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { BaseService } from "../base/base.service";
 import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
 
 @Injectable({
     providedIn: 'root'
@@ -12,7 +13,7 @@ export class RegistrationService extends BaseService{
         super();
     }
 
-    sendRequest(api: string, details: any){
+    sendRequest(api: string, details: any): Observable<any>{
         var body = {
             'login': details.controls.login.value,
             'password': details.controls.password.value,
@@ -20,6 +21,8 @@ export class RegistrationService extends BaseService{
             'name': details.controls.name.value
         };
 
-        return this.http.post(this.url(api,'auth/register'), body)
+        console.log(body);
+
+        return this.http.post(this.url(api,'/auth/register'), body)
     }
 }
